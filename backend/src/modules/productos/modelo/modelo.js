@@ -10,18 +10,18 @@ export const modeloProducto = (sequelize)=>{
         },
         brand:{
             type:DataTypes.STRING,
-            allowNull:false
+            allowNull:false,
         },
         name:{
             type:DataTypes.STRING,
-            allowNull:false
+            allowNull:false,
         },
-        category: {
-            type: DataTypes.STRING,
-            allowNull:false
-        },
+        // category: {
+        //     type: DataTypes.STRING,
+        //     allowNull:false
+        // },
         price:{
-         type:DataTypes.STRING,
+         type:DataTypes.DECIMAL(10, 2),
          allowNull:false   
         },
          description:{
@@ -70,9 +70,17 @@ export const DetailModel = (sequelize)=> {
     validate: {
       min: 0,
     },
-    
   },
-},{
+  ventaId: {
+    type: DataTypes.UUID,
+    allowNull: false,
+  },
+  productoId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+},
+{
         sequelize: sequelize,
         modelName: 'detalles', 
         tableName: 'detalles',

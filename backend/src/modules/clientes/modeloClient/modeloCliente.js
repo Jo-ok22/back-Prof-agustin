@@ -11,6 +11,9 @@ export default (sequelize) => {
     nombre: {
       type: DataTypes.STRING,
       allowNull: false,
+      set(value) {
+        this.setDataValue('nombre', value.toLowerCase());
+      }
     },
     dni: {
       type: DataTypes.STRING,
@@ -19,10 +22,11 @@ export default (sequelize) => {
     },
     telefono: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true
     },
-    tipo: {
-        type: DataTypes.STRING,
+    direccion: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     tableName: 'clientes',

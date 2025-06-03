@@ -3,9 +3,22 @@ import {ventas, productos, detalles,Cliente,Empleado} from '../../../conection.j
 
 export async function GetAllOrders() {
     try {
-        return await ventas.findAll()
+        return await ventas.findAll({
+            include: [
+                {
+                    model: detalles,
+                    include: [{ model: productos }]
+                },
+                {
+                    model: Cliente
+                },
+                {
+                    model: Empleado
+                }
+            ]
+        });
     } catch (error) {
-        throw error
+        throw error;
     }
 }
 
@@ -22,22 +35,20 @@ export async function CreateOrder(order){
         console.log("totalamount:" +totalAmount);
         
         const ventaCreada = await ventas.create({
-            clientName: order.clientName,
             payMethod:order.payMethod, 
             delivery: order.delivery,
-            description:order.description , 
+            description:order.description,
             totalAmount:totalAmount,
             clienteId: order.clienteId, 
             empleadoId: order.empleadoId
         });
-
 
         for (const element of order.productId) {
             const product = productList.find((product) => product.id === element.id);
             if (product) {
                 if (product.stock >= element.quantity) {
                     console.log(product.id);
-                    
+
                     await detalles.create({
                         ventaId: ventaCreada.id,
                         productoId: product.id,

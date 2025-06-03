@@ -7,9 +7,6 @@ export default (sequelize)=>{
             type:DataTypes.UUID,
             defaultValue: DataTypes.UUIDV1
         },
-        clientName:{
-            type:DataTypes.STRING
-        },
         payMethod:{
             type:DataTypes.STRING,
             defaultValue:'Efectivo',
@@ -20,11 +17,6 @@ export default (sequelize)=>{
             defaultValue:false,
             allowNull:false
         },
-        // wholSale:{
-        //     type:DataTypes.BOOLEAN,
-        //     defaultValue:false,
-        //     allowNull:false
-        // },
         totalAmount:{
             type:DataTypes.INTEGER,
             allowNull:false,
@@ -32,6 +24,12 @@ export default (sequelize)=>{
         description:{
             type:DataTypes.STRING,
         },
+        // clienteId:{
+        //     type:DataTypes.INTEGER,
+        // },
+        // empleadoId:{
+        //     type:DataTypes.INTEGER,
+        // },
     },{
         sequelize: sequelize,
         modelName: 'ventas', 
