@@ -7,11 +7,20 @@ import empleadoModel from './modules/empleados/modeloEmpleado/modeloEmpleado.js'
 dotenv.config();
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
+const isProduction = process.env.NODE_ENV === 'production';
 
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   host: DB_HOST,
   dialect: 'postgres',
-  logging: false
+  logging: false,
+  dialectOptions: isProduction
+    ? {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false
+        }
+      }
+    : {}
 });
 
 
